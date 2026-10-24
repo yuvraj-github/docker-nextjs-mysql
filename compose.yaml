@@ -1,0 +1,61 @@
+services:
+
+  # 1. Next.js Application
+  app:
+    build: .
+    image: test-docker
+    container_name: test-docker-nextjs
+    restart: unless-stopped
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+
+    volumes:
+      - ./public/uploads:/app/public/uploads
+
+    depends_on:
+      - db
+
+  # 2. MySQL Database
+  db:
+    image: mysql:8.4
+    container_name: test-docker-mysql
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # 3. phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: test-docker-phpmyadmin
+    restart: unless-stopped
+
+    ports:
+      - "8084:80"
+
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
