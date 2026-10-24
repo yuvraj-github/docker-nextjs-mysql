@@ -3,7 +3,7 @@ services:
   # 1. Next.js Application
   app:
     build: .
-    image: test-docker:production
+    image: test-docker
     container_name: test-docker-nextjs
     restart: unless-stopped
 
