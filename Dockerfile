@@ -8,6 +8,10 @@ RUN npm ci
 
 COPY . .
 
+RUN npm run build
+
 EXPOSE 3000
 
-CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]
+ENV NODE_ENV=production
+
+CMD ["npm", "run", "start", "--", "--hostname", "0.0.0.0"]
