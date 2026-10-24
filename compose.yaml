@@ -16,9 +16,17 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
+      WATCHPACK_POLLING: "true"
 
     volumes:
-      - ./public/uploads:/app/public/uploads
+      # Hot Reload: Connect local source code to container
+      - .:/app
+
+      # Keep container dependencies separate
+      - /app/node_modules
+
+      # Keep Next.js generated files inside container
+      - /app/.next
 
     depends_on:
       - db

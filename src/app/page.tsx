@@ -270,7 +270,7 @@ export default function Home() {
             Your collection
           </p>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Uploaded Images
+            My Docker Gallery
           </h1>
           <p className="mt-2 text-slate-600">
             Upload and browse your image library.
